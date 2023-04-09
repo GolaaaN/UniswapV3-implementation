@@ -2,9 +2,6 @@
 	path = lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
 
-[submodule "ERC20"]
-	url = https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/token/ERC20
-
 [submodule "vendors"]
 	path = vendors
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
