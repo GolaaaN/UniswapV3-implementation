@@ -2,7 +2,7 @@
 // OpenZeppelin Contracts (last updated v4.8.0) (token/ERC20/ERC20.sol)
 pragma solidity ^0.8.0;
 
-import "vendors/contracts/token/ERC20/ERC20.sol";
+import "openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract RedToken is ERC20{
     address private _dex;
