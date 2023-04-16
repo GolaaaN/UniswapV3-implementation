@@ -2,7 +2,7 @@
 # UniswapV3-implementation
 A uniswapV3 playground for learning pruposes.
 
-## UniswapV3 - liquidity calculations and swap calculations
+## UniswapV3 - formulas and calculations
 
 **price formula:**
 
@@ -20,14 +20,18 @@ therefore:
 
 $$ sqrtPriceX96 = sqrtPrice * 2^{96}$$
 
-**liquidity formula:**
+**liquidity formulas:**
 
 $$L = \sqrt{xy}$$
 
 $$L=\Delta{x}{\sqrt{P_b}\sqrt{P_c} \over \sqrt{P_c}-\sqrt{P_a}}$$
 
+$$L={\Delta{y} \over \sqrt{P_c} - \sqrt{P_a}}$$
 
+**amounts formulas:**
 
+$$\Delta{x} = {L(\sqrt{P_b}-\sqrt{P_c}) \over \sqrt{P_b}\sqrt{P_c}}$$
+$$\Delta{y} = {L(\sqrt{P_c}-\sqrt{P_a})$$
 
 
 
