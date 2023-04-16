@@ -24,7 +24,7 @@ contract UniswapTest is Test, IUniswapV3MintCallback, IUniswapV3SwapCallback {
 
     function setUp() public {
         //create two tokens
-        red = new RedToken("RED", "RED", 5042 ether);
+        red = new RedToken("RED", "RED", 5043 ether);
         blue = new BlueToken("BLUE", "BLU", 1 ether);
 
         //create factory
@@ -37,8 +37,23 @@ contract UniswapTest is Test, IUniswapV3MintCallback, IUniswapV3SwapCallback {
     function testSwap() public {
         //after the deployment of the factory we create pool with our tokens and 0.3% fees
         testPool.initialize(5602277097478614198912276234240);
-        testPool.mint(msg.sender, 84000, 87000, 1517882343751509868544, "");
+        testPool.mint(msg.sender, 84222, 86129, 1517882343751509783892, "");
+        //require(false, Strings.toString(blue.balanceOf(address(testPool))));
+        //mint tests
+        /*assertEq(
+            red.balanceOf(address(this)) < 11 ether,
+            true,
+            "mint error 1 "
+        );
+        assertEq(
+            blue.balanceOf(address(this)) < 1 ether,
+            true,
+            "mint error 2 "
+        );*/
 
+        uint balanceRedBeforeSwap = red.balanceOf(address(this));
+        uint balanceBlueBeforeSwap = blue.balanceOf(address(this));
+        require(false, Strings.toString(red.balanceOf(address(testPool))));
         testPool.swap(
             address(this),
             false,
@@ -47,8 +62,18 @@ contract UniswapTest is Test, IUniswapV3MintCallback, IUniswapV3SwapCallback {
             ""
         );
 
-        //require(false, Strings.toString(red.balanceOf(address(this))));
-        require(false, Strings.toString(blue.balanceOf(address(this))));
+        //require(false, Strings.toString(uint256(red.balanceOf(address(this)))));
+        /*assertEq(
+            balanceRedBeforeSwap > red.balanceOf(address(this)),
+            true,
+            "swap error 1 "
+        );
+
+        assertEq(
+            balanceBlueBeforeSwap < blue.balanceOf(address(this)),
+            true,
+            "swap error 2 "
+        );*/
     }
 
     function uniswapV3SwapCallback(
@@ -56,16 +81,9 @@ contract UniswapTest is Test, IUniswapV3MintCallback, IUniswapV3SwapCallback {
         int256 amount1Delta,
         bytes calldata data
     ) external override {
-        (address token0, address token1) = address(red) < address(blue)
-            ? (address(red), address(blue))
-            : (address(blue), address(red));
-        //require(false, "hi");
-        //approve the pool to spend our tokens.
-        RedToken(token0).approve(address(testPool), uint256(amount0Delta));
-        BlueToken(token1).approve(address(testPool), uint256(amount1Delta));
-        //transfer tokens to the pool adter init the liq.
-        RedToken(token0).transfer(address(testPool), uint256(amount0Delta));
-        BlueToken(token1).transfer(address(testPool), uint256(amount1Delta));
+        red.approve(address(testPool), uint256(amount1Delta));
+        red.transfer(address(testPool), uint256(amount1Delta));
+        require(false, Strings.toString(blue.balanceOf(address(this))));
     }
 
     function uniswapV3MintCallback(
