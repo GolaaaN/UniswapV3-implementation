@@ -1,2 +1,10 @@
+
 # UniswapV3-implementation
-This sentence uses `$` delimiters to show math inline:  $\sqrt{3x-1}+(1+x)^2$
+A uniswapV3 playground for learning pruposes.
+
+## UniswapV3 - liquidity calculations and swap calculations
+
+**price calculation**
+
+$$\sqrt{P}=\sqrt{y/x}$$
+
