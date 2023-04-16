@@ -1,3 +1,4 @@
+
 # UniswapV3-implementation
 A uniswapV3 playground for learning pruposes.
 
@@ -16,4 +17,6 @@ $$i=\log_{\sqrt{1.0001}}\sqrt{P}$$
 Uniswap uses Q64.96 number to store the price(sqrtPriceX96)
 therefore:
 
-$$ \sqrtPriceX96 = \sqrtPrice * 2^{96}$$
+$$ sqrtPriceX96 = sqrtPrice * 2^{96}$$
+
+
