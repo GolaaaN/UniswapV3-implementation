@@ -24,7 +24,7 @@ $$ sqrtPriceX96 = sqrtPrice * 2^{96}$$
 
 $$L = \sqrt{xy}$$
 
-**L=\Delta{x}{\sqrt{P_b}\sqrt{P_c} \over \sqrt{P_c}-\sqrt{P_a}}
+$$L=\Delta{x}{\sqrt{P_b}\sqrt{P_c} \over \sqrt{P_c}-\sqrt{P_a}}$$
 
 
 
