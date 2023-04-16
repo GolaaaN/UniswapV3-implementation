@@ -2,6 +2,7 @@
 pragma solidity >=0.7.6;
 pragma abicoder v2;
 
+import "../uniswap-v3-core/contracts/Strings.sol";
 import "forge-std/Test.sol";
 import "../src/BlueToken.sol";
 import "../src/RedToken.sol";
@@ -23,8 +24,8 @@ contract UniswapTest is Test, IUniswapV3MintCallback, IUniswapV3SwapCallback {
 
     function setUp() public {
         //create two tokens
-        red = new RedToken("RED", "RED", 15);
-        blue = new BlueToken("BLUE", "BLU", 15);
+        red = new RedToken("RED", "RED", 5042 ether);
+        blue = new BlueToken("BLUE", "BLU", 1 ether);
 
         //create factory
         factory = new UniswapV3Factory();
@@ -35,10 +36,19 @@ contract UniswapTest is Test, IUniswapV3MintCallback, IUniswapV3SwapCallback {
 
     function testSwap() public {
         //after the deployment of the factory we create pool with our tokens and 0.3% fees
+        testPool.initialize(5602277097478614198912276234240);
+        testPool.mint(msg.sender, 84000, 87000, 1517882343751509868544, "");
 
-        testPool.mint(msg.sender, tickLower, tickUpper, 100, "");
+        testPool.swap(
+            address(this),
+            false,
+            42,
+            5604469350942327889444743441197,
+            ""
+        );
 
-        testPool.swap(msg.sender, true, 5, 0, " ");
+        //require(false, Strings.toString(red.balanceOf(address(this))));
+        require(false, Strings.toString(blue.balanceOf(address(this))));
     }
 
     function uniswapV3SwapCallback(
@@ -46,12 +56,16 @@ contract UniswapTest is Test, IUniswapV3MintCallback, IUniswapV3SwapCallback {
         int256 amount1Delta,
         bytes calldata data
     ) external override {
+        (address token0, address token1) = address(red) < address(blue)
+            ? (address(red), address(blue))
+            : (address(blue), address(red));
+        //require(false, "hi");
         //approve the pool to spend our tokens.
-        red.approve(address(testPool), uint256(amount0Delta));
-        blue.approve(address(testPool), uint256(amount1Delta));
+        RedToken(token0).approve(address(testPool), uint256(amount0Delta));
+        BlueToken(token1).approve(address(testPool), uint256(amount1Delta));
         //transfer tokens to the pool adter init the liq.
-        red.transfer(address(testPool), uint256(amount0Delta));
-        blue.transfer(address(testPool), uint256(amount1Delta));
+        RedToken(token0).transfer(address(testPool), uint256(amount0Delta));
+        BlueToken(token1).transfer(address(testPool), uint256(amount1Delta));
     }
 
     function uniswapV3MintCallback(
@@ -59,11 +73,15 @@ contract UniswapTest is Test, IUniswapV3MintCallback, IUniswapV3SwapCallback {
         uint256 amount1Owed,
         bytes calldata data
     ) external override {
+        (address token0, address token1) = address(red) < address(blue)
+            ? (address(red), address(blue))
+            : (address(blue), address(red));
+        //require(false, "hi");
         //approve the pool to spend our tokens.
-        red.approve(address(testPool), amount0Owed);
-        blue.approve(address(testPool), amount0Owed);
+        RedToken(token0).approve(address(testPool), amount0Owed);
+        BlueToken(token1).approve(address(testPool), amount1Owed);
         //transfer tokens to the pool adter init the liq.
-        red.transfer(address(testPool), amount1Owed);
-        blue.transfer(address(testPool), amount1Owed);
+        RedToken(token0).transfer(address(testPool), amount0Owed);
+        BlueToken(token1).transfer(address(testPool), amount1Owed);
     }
 }
