@@ -31,6 +31,7 @@ $$L={\Delta{y} \over \sqrt{P_c} - \sqrt{P_a}}$$
 **amounts formulas:**
 
 $$\Delta{x} = {L(\sqrt{P_b}-\sqrt{P_c}) \over \sqrt{P_b}\sqrt{P_c}}$$
+
 $$\Delta{y} = {L(\sqrt{P_c}-\sqrt{P_a})$$
 
 
