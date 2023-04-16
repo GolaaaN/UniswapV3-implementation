@@ -53,7 +53,7 @@ contract UniswapTest is Test, IUniswapV3MintCallback, IUniswapV3SwapCallback {
 
         uint balanceRedBeforeSwap = red.balanceOf(address(this));
         uint balanceBlueBeforeSwap = blue.balanceOf(address(this));
-        require(false, Strings.toString(red.balanceOf(address(testPool))));
+
         testPool.swap(
             address(this),
             false,
@@ -61,7 +61,7 @@ contract UniswapTest is Test, IUniswapV3MintCallback, IUniswapV3SwapCallback {
             5604469350942327889444743441197,
             ""
         );
-
+        //require(false, Strings.toString(red.balanceOf(address(testPool))));
         //require(false, Strings.toString(uint256(red.balanceOf(address(this)))));
         /*assertEq(
             balanceRedBeforeSwap > red.balanceOf(address(this)),
@@ -83,7 +83,7 @@ contract UniswapTest is Test, IUniswapV3MintCallback, IUniswapV3SwapCallback {
     ) external override {
         red.approve(address(testPool), uint256(amount1Delta));
         red.transfer(address(testPool), uint256(amount1Delta));
-        require(false, Strings.toString(blue.balanceOf(address(this))));
+        //require(false, Strings.toString(blue.balanceOf(address(this))));
     }
 
     function uniswapV3MintCallback(
